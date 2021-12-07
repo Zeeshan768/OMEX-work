@@ -1,0 +1,51 @@
+indexwr
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace indexers
+{
+    class Student
+    {
+        int[] array = new int[4];
+        public int this[int index]
+        {
+            get { return array[index]; }
+            set
+            {
+                if (index>=0 && index <array.Length)
+                {
+                    if (value > 0)
+                    {
+                        array[index] = value;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Wrong value!!");
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine("Wrong index");
+                }
+            }
+        }
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+                Student std = new Student();
+                Console.WriteLine("Enter Intex of arrey");
+                int indx = int.Parse(Console.ReadLine());
+                Console.WriteLine("Enter value");
+                int val = int.Parse(Console.ReadLine());
+                std[indx] = val;
+                Console.WriteLine("The values you enterd is = "+std[indx]);
+                Console.Read();
+            }
+        }
+    }
+}
