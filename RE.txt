@@ -1,4 +1,3 @@
-indexwr
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,7 @@ namespace indexers
             get { return array[index]; }
             set
             {
-                if (index>=0 && index <array.Length)
+                if (index >= 0 && index < array.Length)
                 {
                     if (value > 0)
                     {
@@ -33,6 +32,14 @@ namespace indexers
                 }
             }
         }
+            public int this[int index,int i]
+        {
+            get { return array[index];}
+            set {
+                array[index] = value+i;
+                }
+        }
+        }
         internal class Program
         {
             static void Main(string[] args)
@@ -44,8 +51,10 @@ namespace indexers
                 int val = int.Parse(Console.ReadLine());
                 std[indx] = val;
                 Console.WriteLine("The values you enterd is = "+std[indx]);
+                std[indx,1] = val;
+                Console.WriteLine(std[indx,1]);
                 Console.Read();
             }
-        }
-    }
-}
+       }
+ }
+
