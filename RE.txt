@@ -1,3 +1,4 @@
+                                                       ...............Indexer...............
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,4 +58,34 @@ namespace indexers
             }
        }
  }
+                                                                .................Delegate..................
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace indexers
+{
+    class Student
+    {
+        //delegate 
+        public delegate void cal(int a, int b);
+        public static void Sum(int a, int b)
+        {
+            int sum = a + b;
+            Console.WriteLine(sum);
+        }
+
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+                cal obj = new cal(Student.Sum);
+                obj.Invoke(2, 4);
+                Console.WriteLine(obj);
+            }
+        }
+
+    }
+}
