@@ -67,25 +67,61 @@ using System.Threading.Tasks;
 
 namespace indexers
 {
-    class Student
+    public delegate void calculations(int a, int b);
+    class Calculations
     {
-        //delegate 
-        public delegate void cal(int a, int b);
-        public static void Sum(int a, int b)
+        public static void sum(int a, int b)
         {
-            int sum = a + b;
-            Console.WriteLine(sum);
+            int result = a + b;
+            Console.WriteLine(result);
         }
-
+        public static void diff(int a, int b)
+        {
+            int result = a - b;
+            Console.WriteLine(result);
+        }
+        public static void multiplication(int a, int b)
+        {
+            int result = a * b;
+            Console.WriteLine(result);
+        }
+        public static void division(int a, int b)
+        {
+            int result = a / b;
+            Console.WriteLine(result);
+        }
+        public static void mod(int a, int b)
+        {
+            int result = a % b;
+            Console.WriteLine(result);
+        }
         internal class Program
         {
             static void Main(string[] args)
             {
-                cal obj = new cal(Student.Sum);
-                obj.Invoke(2, 4);
-                Console.WriteLine(obj);
+                calculations obj = new calculations(Calculations.sum);
+                obj(20, 10);
+                obj = diff;
+                obj(20, 10);
+                obj = multiplication;
+                obj(20, 10);
+                obj = division;
+                obj(20, 10);
+                obj = mod;
+                obj(20, 10);
+                //......................or.................
+                calculations obj1 = new calculations(Calculations.diff);
+                obj1(20, 10);
+                calculations obj2 = new calculations(Calculations.multiplication);
+                obj2(20, 10);
+                calculations obj3 = new calculations(Calculations.division);
+                obj3(20, 10);
+                calculations obj4 = new calculations(Calculations.mod);
+                obj(20, 10);
+                Console.Read();
             }
         }
+
 
     }
 }
