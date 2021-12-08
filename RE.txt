@@ -125,3 +125,45 @@ namespace indexers
 
     }
 }
+                                                                      .................genrics................
+                                                                      using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace indexers
+{
+    public delegate void calculations(int a, int b);
+    class Example
+        {
+        public static void showArray<T>(T[] arr)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.WriteLine(arr[i]);
+            }
+        }
+        }
+    class Program
+        {
+            static void Main(string[] args)
+            {
+            int[] numbers = new int[3];
+            numbers[0] = 1; 
+            numbers[1] = 2; 
+            numbers[2] = 3; 
+               string[] numbers2 = {"zee","fee","mee"};
+            Example.showArray(numbers);
+            Example.showArray(numbers2);
+            Example.showArray(numbers);
+            Example.showArray(numbers2);
+            Example.showArray(numbers);
+            Example.showArray(numbers2);
+            Example.showArray(numbers);
+            Example.showArray(numbers2);Example.showArray(numbers);
+            Example.showArray(numbers2);
+            Console.Read();
+            }
+        }
+}
