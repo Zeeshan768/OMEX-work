@@ -223,3 +223,54 @@ namespace indexers
             }
         }
 }
+                                                                  ...................MultiThreading...................
+                                                                  using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace threading
+{
+    class Programs
+    {
+        public static void func1()
+        {
+            for (int i = 1; i < 50; i++)
+            {
+                Console.WriteLine("Func1 =" + i);
+            }
+        }
+        public static void func2()
+        {
+            for (int i = 1; i < 50; i++)
+            {
+                if (i == 25)
+                {
+                    Console.WriteLine("Sleep for 10 seconds.");
+                    Thread.Sleep(100000);
+                }
+            }
+        }
+        public static void func3()
+        {
+            for (int i = 1; i < 50; i++)
+            {
+                Console.WriteLine("Func3 =" + i);
+            }
+        }
+    }
+    internal class Program
+    {
+
+        static void Main(string[] args)
+        {
+            Programs.func1();
+            Programs.func2();
+            Programs.func3();
+            Console.WriteLine();
+        }
+    }
+
+}
