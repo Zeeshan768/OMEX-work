@@ -274,3 +274,293 @@ namespace threading
     }
 
 }
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace threading
+{
+    class ThreadTest
+{
+  bool done;
+ 
+  static void Main()
+  {
+    ThreadTest tt = new ThreadTest();   // Create a common instance
+    new Thread (tt.Go).Start();
+    tt.Go();
+  }
+ 
+  // Note that Go is now an instance method
+  void Go() 
+  {
+     if (!done) { done = true; Console.WriteLine ("Done"); }
+  }
+}
+    //using System;
+    //using System.Threading;
+
+    //class Program
+    //{
+
+
+    //    static void Main()
+    //    {
+    //        // Create an array of Thread references.
+    //        Thread[] array = new Thread[10];
+    //        for (int i = 0; i < array.Length; i++)
+    //        {
+    //            // Start the thread with a ThreadStart.
+    //            ThreadStart start = new ThreadStart(Start);
+    //            array[i] = new Thread(start);
+    //            array[i].Start();
+    //        }
+    //        // Join all the threads. 
+    //    }
+
+    //    static void Start()
+    //    {
+    //        //This method has no formal parameters.
+    //        Console.WriteLine("   ");
+    //    }
+    //}
+    // class ThreadTest
+    // {
+
+    //static void Main()
+    //{
+    //    Thread t = new Thread(WriteY); // Kick off a new thread
+    //    Thread X = new Thread(WriteX); // Kick off a new thread
+    //    t.Start();
+    //    X.Start(); // running WriteY()
+    //               // Simultaneously, do something on the main thread.
+
+    //}
+    //static void WriteY()
+    //{
+    //    for (int i = 0; i < 1000; i++)
+    //    {
+    //        if (i == 1)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 2)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 3)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 4)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 5)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 6)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 7)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 8)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 9)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 10)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 12)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 14)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 16)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 17)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 20)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 24)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+
+    //        Console.WriteLine(i + " y");
+    //    }
+    //}
+    //static void WriteX()
+    //{
+
+    //    for (int i = 0; i < 1000; i++)
+    //    {
+
+    //        {
+    //            if (i == 1)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 2)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 3)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 4)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 5)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 6)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 7)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 8)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 9)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 10)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 12)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 14)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 16)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 17)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 20)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 24)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            Console.WriteLine(i+"X");
+    //        }
+
+    //    }
+
+    // }
+    //  }
+    //}
+
+    //    public static void func1()
+    //    {
+    //        for (int i = 1; i < 50; i++)
+    //        {
+    //            Console.WriteLine("Func1 =" + i);
+    //        }
+    //    }
+    //    public static void func2()
+    //    {
+    //        for (int i = 1; i < 50; i++)
+    //        {
+    //            if (i == 48)
+    //            {
+    //                Console.WriteLine("Sleep for 18 seconds.");
+    //                Thread.Sleep(80000);
+
+    //            }
+    //        }
+    //    }
+    //    public static void func3()
+    //    {
+    //        for (int i = 1; i < 50; i++)
+    //        {
+    //            Console.WriteLine("Func3 =" + i);
+    //        }
+    //    } 
+    //    
+    //    {
+    //        Thread t1 = new Thread(func1);
+    //        Thread t2 = new Thread(func2);
+    //        Thread t3 = new Thread(func3);
+    //        t1.Start();
+    //        t2.Start();
+    //        t3.Start();
+    //        //Programs.func1();
+    //        //Programs.func2();
+    //        //Programs.func3();
+    //        Console.WriteLine();
+    //    }
+    //}
+}
