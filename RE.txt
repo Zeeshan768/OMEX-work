@@ -750,4 +750,29 @@ namespace thread
         }
     }
 }
+                                          ...................Pasing arguments to threads................
+                                          using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
 
+namespace Thredassss
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter Nay sentence : ");
+            Thread  t = new Thread(() => test("123"));
+            t.Start();
+        }
+        static void test(object message)
+            {
+            message=Console.ReadLine(); 
+            Console.WriteLine(message);
+            Console.Read();
+            }
+        
+    }
