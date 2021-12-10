@@ -592,3 +592,110 @@ namespace Threats
         }
     }
 }
+                                                                    ....................Synchro....Threading by using lock(this)..............
+                                                                    using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace thread
+{
+    class Threads
+    {
+        public void test1()
+        {
+            lock (this)
+            {
+                for (int i = 0; i <= 10; i++)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+        }
+        public  void test2()
+        {
+            lock (this)
+            {
+                for (int i = 0; i <= 10; i++)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+        }
+        public void test3()
+        {
+            lock(this)
+            {
+                for (int i = 0; i <= 10; i++)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+        }
+        internal class Program
+        {
+            static void Main(string[] args)
+            {   
+                Threads tt = new Threads();   
+                Thread t1 = new Thread(tt.test1);
+                t1.Start();
+                Thread t2 = new Thread(tt.test2);
+                t2.Start();
+                Thread t3 = new Thread(tt.test3);
+                t3.Start();
+                Console.ReadLine();
+            }
+        }
+    }
+}
+                             ...................Asynchronic therad...............
+                             using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace thread
+{
+    class Threads
+    {
+        public static void test1()
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                Console.WriteLine(i);
+            }
+        }
+        public static void test2()
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                Console.WriteLine(i);
+            }
+        }
+        public static void test3()
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                Console.WriteLine(i);
+            }
+        }
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+                Thread t1 = new Thread(test1);
+                t1.Start();
+                Thread t2 = new Thread(test2);
+                t2.Start();
+                Thread t3 = new Thread(test3);
+                t3.Start();
+                Console.ReadLine();
+            }
+        }
+    }
+}
+
