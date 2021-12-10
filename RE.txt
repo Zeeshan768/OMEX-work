@@ -32,7 +32,59 @@ namespace indexers
                     Console.WriteLine("Wrong index");
                 }
             }
+                                                  ................Thread using join ....................
+                                                  using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace thread
+{
+    class Threads
+    {
+        public static void test1()
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                Console.WriteLine("Test-1 = " + i);
+            }
         }
+        public static void test2()
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                Console.WriteLine("Test-2 = "+i);
+            }
+        }
+        public static void test3()
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                Console.WriteLine("Test-3 = " + i);
+            }
+        }
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+                Thread t1 = new Thread(test1);               
+                Thread t2 = new Thread(test2);
+                
+                Thread t3 = new Thread(test3);
+                t3.Start();
+                t3.Join();
+                t2.Start();
+                t1.Start();
+                t1.Join();
+               
+                Console.ReadLine();
+            }
+        }
+    }
+}
+
             public int this[int index,int i]
         {
             get { return array[index];}
