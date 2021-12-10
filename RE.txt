@@ -563,4 +563,32 @@ namespace threading
     //        Console.WriteLine();
     //    }
     //}
+} 
+                                                                        ........................Thread Passing Argumrnts......................
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace Threats
+{
+    class ThreadSafe
+    {
+        //another wey to give arguments to thread
+        static void Main()
+        {
+            Thread t = new Thread(Print);
+            t.Start();      
+        }
+       static void Print(object a)
+        {
+            Console.WriteLine("Press Any alpha Numeric value");
+            
+            int message = (int.Parse(Console.ReadLine()));
+            Console.WriteLine(message);
+            Console.Read();
+        }
+    }
 }
