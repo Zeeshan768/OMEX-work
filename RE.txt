@@ -776,3 +776,149 @@ namespace Thredassss
             }
         
     }
+                                                                        ...............13/dec/2021................
+                                                                        using System.Collections;
+using System.Collections.Generic;
+namespace Console
+{
+    delegate void Cal(float a, float b);
+    delegate void name(string s);
+    class Program
+    {
+      
+        public static void Del1(float a , float b)
+        {
+            float sum = a + b;
+            System.Console.WriteLine($"The Sum {sum} with the help of Delegete\n");
+        }
+        public static void Del2(float a, float b)
+        {
+            float sum;
+
+            if (a < b)
+            {
+                sum = -(a - b);
+                System.Console.WriteLine($"The Subtract { sum } with the help of Delegete\n");
+            }
+            else
+            {
+                sum = a - b;
+                System.Console.WriteLine($"The Subtract { sum } with the help of Delegete\n");
+            }
+
+            
+        }
+        public static void Del3(float a, float b)
+        {
+            float sum = a * b;
+            System.Console.WriteLine($"The Multiple { sum } with the help of Delegete\n");
+        }
+        public static void Del4(float a, float b)
+        {
+            float sum = a / b;
+            System.Console.WriteLine($"The Divion { sum } with the help of Delegete\n");
+        }
+        public static void Generics<T>(T[] arr)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                System.Console.WriteLine(arr[i]+"\n");
+            }
+        }
+
+
+        public static void Main(string[] args)
+        {
+            Cal c = new Cal(Program.Del1);
+            c(10, 20);
+            c = Del2;
+            c(30, 20);
+            c = Del3;
+            c(10, 20);
+            c = Del4;
+            c(10, 20);
+            ArrayList list = new ArrayList();
+            list.Add(11370);
+            list.Add("Faiez Ahmed");
+            list.Add('F');
+            list.Add(3.0d);
+            foreach (object obj in list)
+            {
+                System.Console.WriteLine(obj+"\n");
+            }
+            int[] Number = {11373};
+            string[] Name = {"Syed Faiza"};
+            double[] CGPA = { 3.1d };
+            char[] var = { 'S' };
+            Program.Generics(Number);
+            Program.Generics(Name);
+            Program.Generics(CGPA);
+            Program.Generics(var);
+            Cal ca = delegate (float x, float y)
+            {
+                System.Console.WriteLine("Anonymos Methd is Here: " + (x + y) + "\n");
+            };
+            ca(20.5f, 100.9f);
+            List<int> li = new List<int>();
+            System.Console.WriteLine("____________________ THIS IS UNSORT GENERICS ____________________\n");
+            li.Add(20);
+            li.Add(10);
+            li.Add(50);
+            li.Add(40);
+            li.Add(30);
+            foreach (int i in li)
+            {
+                System.Console.WriteLine(i);
+            }
+            System.Console.WriteLine("____________________ THIS IS SORT GENERICS ____________________\n");
+            li.Sort();
+            foreach (int i in li)
+            {
+                System.Console.WriteLine(i);
+            }
+            System.Console.WriteLine("____________________ THIS IS INSERT ANOTHER VALUE GENERICS ____________________\n");
+            li.Insert(2, 25);
+            foreach (int i in li)
+            {
+                System.Console.WriteLine(i);
+            }
+            System.Console.WriteLine("____________________ THIS IS REMOVING VALUE FROM INDEX WITH THE HELP OF REMOVEAT GENERICS ____________________\n");
+            li.RemoveAt(3);
+            foreach (int i in li)
+            {
+                System.Console.WriteLine(i);
+            }
+            System.Console.WriteLine("____________________ THIS IS REMOVING VALUE FROM GENERICS ____________________\n");
+            li.Remove(40);
+            foreach (int i in li)
+            {
+                System.Console.WriteLine(i);
+            }
+            string fullname = "Faiez Ahmed";
+            name n = delegate (string str)
+            {
+                System.Console.WriteLine("My name is: "+str);
+                System.Console.WriteLine("But My Full Name is: "+fullname+"\n");
+            };
+            n("Faiez");
+            unsafe
+            {
+                int x = 10;
+                int* ptr;
+                ptr = &x;
+                System.Console.WriteLine("Inside the unsafe code block");
+                System.Console.WriteLine("The value of x is " + *ptr);
+                System.Console.WriteLine("\nOutside the unsafe code block");
+            }
+            System.Console.ReadKey();
+       
+
+
+
+
+
+
+        }
+
+    }
+}
