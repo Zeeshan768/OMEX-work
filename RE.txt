@@ -922,3 +922,60 @@ namespace Console
 
     }
 }
+                                                  ............................Task 14.................
+                                                  using System.Threading;
+using System;
+namespace ThreadingDemo
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Method1 - Thread1 Started             Method2 - Thread2 Started            Method3 - Thread3 Started");
+            Console.WriteLine("\n-----------");
+            Thread thread1 = new Thread(Method1);
+            Thread thread2 = new Thread(Method2);
+            Thread thread3 = new Thread(Method3);
+            thread1.Start();
+            thread2.Start();
+            thread3.Start();
+            Console.Read();
+        }
+        static void Method1()
+        {
+            //Console.Write("Method1 - Thread1 Started");
+            for (int i = 1; i < 10; i++)
+            {
+                Thread.Sleep(1000);
+                Console.Write("  f1    "+i);
+                Console.WriteLine();
+
+            }           
+        }
+        static void Method2()
+        {
+            //Console.Write("                         Method2 - Thread2 Started");
+            for (int i = 1; i < 10; i++)
+            {
+                Thread.Sleep(2000); 
+                Console.Write("                                                 f2    " + i);
+                Console.WriteLine();
+
+            }
+
+        }
+        static void Method3()
+        {
+            //Console.Write("            Method3 - Thread3 Started");
+            for (int i = 1; i < 10; i++)
+            {
+                Thread.Sleep(3000);
+                Console.Write("                                                                                         f3    " + i);
+                Console.WriteLine();
+
+            }
+           
+           
+        }
+    }
+}
