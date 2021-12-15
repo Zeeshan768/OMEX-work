@@ -1089,3 +1089,69 @@ namespace ThreadingDemo
 
     }
 }
+''''''''''''''''''''''''''''''agian task 2.....
+using System.Threading;
+using System;
+namespace ThreadingDemo
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Method1 - Thread1 Started             Method2 - Thread2 Started            Method3 - Thread3 Started");
+            Console.Write("\n");
+            Thread thread1 = new Thread(Method1);
+            thread1.Priority = ThreadPriority.Normal;
+            thread1.Start();
+            Thread thread2 = new Thread(Method2);
+            thread2.Priority = ThreadPriority.Normal;
+            thread2.Start();
+            Thread thread3 = new Thread(Method3);
+            thread3.Priority = ThreadPriority.Normal;
+            thread3.Start();
+            Thread thread4 = new Thread(Method4);
+            thread4.Start();
+            thread4.Priority = ThreadPriority.Lowest;
+           
+        }
+        static void Method4()
+        {
+            Thread.Sleep(2000);
+        }
+        static void Method1()
+        {
+
+            for (int i = 1; i > 0; i++)
+            {
+               
+                Console.Write(i);
+                Thread.Sleep(1000);
+                Console.Clear();
+            }
+        }
+        static void Method2()
+        {
+
+            for (int i = 1; i > 0; i++)
+            {
+                Console.Write("                                           " + i);
+                Thread.Sleep(2000);
+                Console.Clear();
+                
+            }
+        }
+        static void Method3()
+        {
+
+            for (int i = 1; i > 0; i++)
+            {
+                Console.Write("                                                                                              " + i);
+                Thread.Sleep(4000);
+                Console.Clear();
+                
+
+            }
+        }
+
+    }
+}
