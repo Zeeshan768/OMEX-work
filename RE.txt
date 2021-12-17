@@ -1280,3 +1280,1286 @@ namespace ThreadingDemo
 
     }
 }
+                                                ........................Task Work.............
+                                                       ...............Indexer...............
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace indexers
+{
+    class Student
+    {
+        int[] array = new int[4];
+        public int this[int index]
+        {
+            get { return array[index]; }
+            set
+            {
+                if (index >= 0 && index < array.Length)
+                {
+                    if (value > 0)
+                    {
+                        array[index] = value;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Wrong value!!");
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine("Wrong index");
+                }
+            }
+                                                  ................Thread using join ....................
+                                                  using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace thread
+{
+    class Threads
+    {
+        public static void test1()
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                Console.WriteLine("Test-1 = " + i);
+            }
+        }
+        public static void test2()
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                Console.WriteLine("Test-2 = "+i);
+            }
+        }
+        public static void test3()
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                Console.WriteLine("Test-3 = " + i);
+            }
+        }
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+                Thread t1 = new Thread(test1);               
+                Thread t2 = new Thread(test2);
+                
+                Thread t3 = new Thread(test3);
+                t3.Start();
+                t3.Join();
+                t2.Start();
+                t1.Start();
+                t1.Join();
+               
+                Console.ReadLine();
+            }
+        }
+    }
+}
+
+            public int this[int index,int i]
+        {
+            get { return array[index];}
+            set {
+                array[index] = value+i;
+                }
+        }
+        }
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+                Student std = new Student();
+                Console.WriteLine("Enter Intex of arrey");
+                int indx = int.Parse(Console.ReadLine());
+                Console.WriteLine("Enter value");
+                int val = int.Parse(Console.ReadLine());
+                std[indx] = val;
+                Console.WriteLine("The values you enterd is = "+std[indx]);
+                std[indx,1] = val;
+                Console.WriteLine(std[indx,1]);
+                Console.Read();
+            }
+       }
+ }
+                                                                .................Delegate..................
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace indexers
+{
+    public delegate void calculations(int a, int b);
+    class Calculations
+    {
+        public static void sum(int a, int b)
+        {
+            int result = a + b;
+            Console.WriteLine(result);
+        }
+        public static void diff(int a, int b)
+        {
+            int result = a - b;
+            Console.WriteLine(result);
+        }
+        public static void multiplication(int a, int b)
+        {
+            int result = a * b;
+            Console.WriteLine(result);
+        }
+        public static void division(int a, int b)
+        {
+            int result = a / b;
+            Console.WriteLine(result);
+        }
+        public static void mod(int a, int b)
+        {
+            int result = a % b;
+            Console.WriteLine(result);
+        }
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+                calculations obj = new calculations(Calculations.sum);
+                obj(20, 10);
+                obj = diff;
+                obj(20, 10);
+                obj = multiplication;
+                obj(20, 10);
+                obj = division;
+                obj(20, 10);
+                obj = mod;
+                obj(20, 10);
+                //......................or.................
+                calculations obj1 = new calculations(Calculations.diff);
+                obj1(20, 10);
+                calculations obj2 = new calculations(Calculations.multiplication);
+                obj2(20, 10);
+                calculations obj3 = new calculations(Calculations.division);
+                obj3(20, 10);
+                calculations obj4 = new calculations(Calculations.mod);
+                obj(20, 10);
+                Console.Read();
+            }
+        }
+
+
+    }
+}
+                                                                      .................genrics................
+                                                                      using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace indexers
+{
+    public delegate void calculations(int a, int b);
+    class Example
+        {
+        public static void showArray<T>(T[] arr)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.WriteLine(arr[i]);
+            }
+        }
+        }
+    class Program
+        {
+            static void Main(string[] args)
+            {
+            int[] numbers = new int[3];
+            numbers[0] = 1; 
+            numbers[1] = 2; 
+            numbers[2] = 3; 
+               string[] numbers2 = {"zee","fee","mee"};
+            Example.showArray(numbers);
+            Example.showArray(numbers2);
+            Example.showArray(numbers);
+            Example.showArray(numbers2);
+            Example.showArray(numbers);
+            Example.showArray(numbers2);
+            Example.showArray(numbers);
+            Example.showArray(numbers2);Example.showArray(numbers);
+            Example.showArray(numbers2);
+            Console.Read();
+            }
+        }
+}
+                      ...............................genrics.................
+                      using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace indexers
+{   
+    class Check
+    {
+        public static bool example <T>(T a, T b)
+        {
+            bool c = a.Equals(b);
+            return c;
+        }
+    }
+    //public delegate void calculations(int a, int b);
+    //class Example
+    //    {
+    //    public static void showArray<T>(T[] arr)
+    //    {
+    //        for (int i = 0; i < arr.Length; i++)
+    //        {
+    //            Console.WriteLine(arr[i]);
+    //        }
+    //    }
+    //    }
+    class Program
+        {
+            static void Main(string[] args)
+            {
+            Console.WriteLine(Check.example(10, 20));
+            Console.WriteLine(Check.example(10,10));
+            Console.WriteLine(Check.example("xee","xee"));
+            Console.WriteLine(Check.example("xee","mee"));
+            Console.WriteLine(Check.example('B','C'));
+            Console.WriteLine(Check.example('A','A'));
+            //int[] numbers = new int[3];
+            //numbers[0] = 1; 
+            //numbers[1] = 2; 
+            //numbers[2] = 3; 
+            //   string[] numbers2 = {"zee","fee","mee"};
+            //Example.showArray(numbers);
+            //Example.showArray(numbers2);
+            //Example.showArray(numbers);
+            //Example.showArray(numbers2);
+            //Example.showArray(numbers);
+            //Example.showArray(numbers2);
+            //Example.showArray(numbers);
+            //Example.showArray(numbers2);Example.showArray(numbers);
+            //Example.showArray(numbers2);
+            //Console.Read();
+            }
+        }
+}
+                                                                  ...................MultiThreading...................
+                                                                  using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace threading
+{
+    class Programs
+    {
+        public static void func1()
+        {
+            for (int i = 1; i < 50; i++)
+            {
+                Console.WriteLine("Func1 =" + i);
+            }
+        }
+        public static void func2()
+        {
+            for (int i = 1; i < 50; i++)
+            {
+                if (i == 25)
+                {
+                    Console.WriteLine("Sleep for 10 seconds.");
+                    Thread.Sleep(100000);
+                }
+            }
+        }
+        public static void func3()
+        {
+            for (int i = 1; i < 50; i++)
+            {
+                Console.WriteLine("Func3 =" + i);
+            }
+        }
+    }
+    internal class Program
+    {
+
+        static void Main(string[] args)
+        {
+            Programs.func1();
+            Programs.func2();
+            Programs.func3();
+            Console.WriteLine();
+        }
+    }
+
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace threading
+{
+    class ThreadTest
+{
+  bool done;
+ 
+  static void Main()
+  {
+    ThreadTest tt = new ThreadTest();   // Create a common instance
+    new Thread (tt.Go).Start();
+    tt.Go();
+  }
+ 
+  // Note that Go is now an instance method
+  void Go() 
+  {
+     if (!done) { done = true; Console.WriteLine ("Done"); }
+  }
+}
+    //using System;
+    //using System.Threading;
+
+    //class Program
+    //{
+
+
+    //    static void Main()
+    //    {
+    //        // Create an array of Thread references.
+    //        Thread[] array = new Thread[10];
+    //        for (int i = 0; i < array.Length; i++)
+    //        {
+    //            // Start the thread with a ThreadStart.
+    //            ThreadStart start = new ThreadStart(Start);
+    //            array[i] = new Thread(start);
+    //            array[i].Start();
+    //        }
+    //        // Join all the threads. 
+    //    }
+
+    //    static void Start()
+    //    {
+    //        //This method has no formal parameters.
+    //        Console.WriteLine("   ");
+    //    }
+    //}
+    // class ThreadTest
+    // {
+
+    //static void Main()
+    //{
+    //    Thread t = new Thread(WriteY); // Kick off a new thread
+    //    Thread X = new Thread(WriteX); // Kick off a new thread
+    //    t.Start();
+    //    X.Start(); // running WriteY()
+    //               // Simultaneously, do something on the main thread.
+
+    //}
+    //static void WriteY()
+    //{
+    //    for (int i = 0; i < 1000; i++)
+    //    {
+    //        if (i == 1)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 2)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 3)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 4)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 5)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 6)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 7)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 8)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 9)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 10)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 12)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 14)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 16)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 17)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 20)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+    //        if (i == 24)
+    //        {
+    //            Console.WriteLine("Thread is going to sleep ");
+    //            Thread.Sleep(5000);
+    //        }
+
+    //        Console.WriteLine(i + " y");
+    //    }
+    //}
+    //static void WriteX()
+    //{
+
+    //    for (int i = 0; i < 1000; i++)
+    //    {
+
+    //        {
+    //            if (i == 1)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 2)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 3)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 4)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 5)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 6)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 7)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 8)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 9)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 10)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 12)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 14)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 16)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 17)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 20)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            if (i == 24)
+    //            {
+    //                Console.WriteLine("Thread is going to sleep ");
+    //                Thread.Sleep(5000);
+    //            }
+    //            Console.WriteLine(i+"X");
+    //        }
+
+    //    }
+
+    // }
+    //  }
+    //}
+
+    //    public static void func1()
+    //    {
+    //        for (int i = 1; i < 50; i++)
+    //        {
+    //            Console.WriteLine("Func1 =" + i);
+    //        }
+    //    }
+    //    public static void func2()
+    //    {
+    //        for (int i = 1; i < 50; i++)
+    //        {
+    //            if (i == 48)
+    //            {
+    //                Console.WriteLine("Sleep for 18 seconds.");
+    //                Thread.Sleep(80000);
+
+    //            }
+    //        }
+    //    }
+    //    public static void func3()
+    //    {
+    //        for (int i = 1; i < 50; i++)
+    //        {
+    //            Console.WriteLine("Func3 =" + i);
+    //        }
+    //    } 
+    //    
+    //    {
+    //        Thread t1 = new Thread(func1);
+    //        Thread t2 = new Thread(func2);
+    //        Thread t3 = new Thread(func3);
+    //        t1.Start();
+    //        t2.Start();
+    //        t3.Start();
+    //        //Programs.func1();
+    //        //Programs.func2();
+    //        //Programs.func3();
+    //        Console.WriteLine();
+    //    }
+    //}
+} 
+                                                                        ........................Thread Passing Argumrnts......................
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace Threats
+{
+    class ThreadSafe
+    {
+        //another wey to give arguments to thread
+        static void Main()
+        {
+            Thread t = new Thread(Print);
+            t.Start();      
+        }
+       static void Print(object a)
+        {
+            Console.WriteLine("Press Any alpha Numeric value");
+            
+            int message = (int.Parse(Console.ReadLine()));
+            Console.WriteLine(message);
+            Console.Read();
+        }
+    }
+}
+                                                                    ....................Synchro....Threading by using lock(this)..............
+                                                                    using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace thread
+{
+    class Threads
+    {
+        public void test1()
+        {
+            lock (this)
+            {
+                for (int i = 0; i <= 10; i++)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+        }
+        public  void test2()
+        {
+            lock (this)
+            {
+                for (int i = 0; i <= 10; i++)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+        }
+        public void test3()
+        {
+            lock(this)
+            {
+                for (int i = 0; i <= 10; i++)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+        }
+        internal class Program
+        {
+            static void Main(string[] args)
+            {   
+                Threads tt = new Threads();   
+                Thread t1 = new Thread(tt.test1);
+                t1.Start();
+                Thread t2 = new Thread(tt.test2);
+                t2.Start();
+                Thread t3 = new Thread(tt.test3);
+                t3.Start();
+                Console.ReadLine();
+            }
+        }
+    }
+}
+                             ...................Asynchronic therad...............
+                             using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace thread
+{
+    class Threads
+    {
+        public static void test1()
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                Console.WriteLine(i);
+            }
+        }
+        public static void test2()
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                Console.WriteLine(i);
+            }
+        }
+        public static void test3()
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                Console.WriteLine(i);
+            }
+        }
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+                Thread t1 = new Thread(test1);
+                t1.Start();
+                Thread t2 = new Thread(test2);
+                t2.Start();
+                Thread t3 = new Thread(test3);
+                t3.Start();
+                Console.ReadLine();
+            }
+        }
+    }
+}
+                                          ...................Pasing arguments to threads................
+                                          using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace Thredassss
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter Nay sentence : ");
+            Thread  t = new Thread(() => test("123"));
+            t.Start();
+        }
+        static void test(object message)
+            {
+            message=Console.ReadLine(); 
+            Console.WriteLine(message);
+            Console.Read();
+            }
+        
+    }
+                                                                        ...............13/dec/2021................
+                                                                        using System.Collections;
+using System.Collections.Generic;
+namespace Console
+{
+    delegate void Cal(float a, float b);
+    delegate void name(string s);
+    class Program
+    {
+      
+        public static void Del1(float a , float b)
+        {
+            float sum = a + b;
+            System.Console.WriteLine($"The Sum {sum} with the help of Delegete\n");
+        }
+        public static void Del2(float a, float b)
+        {
+            float sum;
+
+            if (a < b)
+            {
+                sum = -(a - b);
+                System.Console.WriteLine($"The Subtract { sum } with the help of Delegete\n");
+            }
+            else
+            {
+                sum = a - b;
+                System.Console.WriteLine($"The Subtract { sum } with the help of Delegete\n");
+            }
+
+            
+        }
+        public static void Del3(float a, float b)
+        {
+            float sum = a * b;
+            System.Console.WriteLine($"The Multiple { sum } with the help of Delegete\n");
+        }
+        public static void Del4(float a, float b)
+        {
+            float sum = a / b;
+            System.Console.WriteLine($"The Divion { sum } with the help of Delegete\n");
+        }
+        public static void Generics<T>(T[] arr)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                System.Console.WriteLine(arr[i]+"\n");
+            }
+        }
+
+
+        public static void Main(string[] args)
+        {
+            Cal c = new Cal(Program.Del1);
+            c(10, 20);
+            c = Del2;
+            c(30, 20);
+            c = Del3;
+            c(10, 20);
+            c = Del4;
+            c(10, 20);
+            ArrayList list = new ArrayList();
+            list.Add(11370);
+            list.Add("Faiez Ahmed");
+            list.Add('F');
+            list.Add(3.0d);
+            foreach (object obj in list)
+            {
+                System.Console.WriteLine(obj+"\n");
+            }
+            int[] Number = {11373};
+            string[] Name = {"Syed Faiza"};
+            double[] CGPA = { 3.1d };
+            char[] var = { 'S' };
+            Program.Generics(Number);
+            Program.Generics(Name);
+            Program.Generics(CGPA);
+            Program.Generics(var);
+            Cal ca = delegate (float x, float y)
+            {
+                System.Console.WriteLine("Anonymos Methd is Here: " + (x + y) + "\n");
+            };
+            ca(20.5f, 100.9f);
+            List<int> li = new List<int>();
+            System.Console.WriteLine("____________________ THIS IS UNSORT GENERICS ____________________\n");
+            li.Add(20);
+            li.Add(10);
+            li.Add(50);
+            li.Add(40);
+            li.Add(30);
+            foreach (int i in li)
+            {
+                System.Console.WriteLine(i);
+            }
+            System.Console.WriteLine("____________________ THIS IS SORT GENERICS ____________________\n");
+            li.Sort();
+            foreach (int i in li)
+            {
+                System.Console.WriteLine(i);
+            }
+            System.Console.WriteLine("____________________ THIS IS INSERT ANOTHER VALUE GENERICS ____________________\n");
+            li.Insert(2, 25);
+            foreach (int i in li)
+            {
+                System.Console.WriteLine(i);
+            }
+            System.Console.WriteLine("____________________ THIS IS REMOVING VALUE FROM INDEX WITH THE HELP OF REMOVEAT GENERICS ____________________\n");
+            li.RemoveAt(3);
+            foreach (int i in li)
+            {
+                System.Console.WriteLine(i);
+            }
+            System.Console.WriteLine("____________________ THIS IS REMOVING VALUE FROM GENERICS ____________________\n");
+            li.Remove(40);
+            foreach (int i in li)
+            {
+                System.Console.WriteLine(i);
+            }
+            string fullname = "Faiez Ahmed";
+            name n = delegate (string str)
+            {
+                System.Console.WriteLine("My name is: "+str);
+                System.Console.WriteLine("But My Full Name is: "+fullname+"\n");
+            };
+            n("Faiez");
+            unsafe
+            {
+                int x = 10;
+                int* ptr;
+                ptr = &x;
+                System.Console.WriteLine("Inside the unsafe code block");
+                System.Console.WriteLine("The value of x is " + *ptr);
+                System.Console.WriteLine("\nOutside the unsafe code block");
+            }
+            System.Console.ReadKey();
+       
+
+
+
+
+
+
+        }
+
+    }
+}
+                                                  ............................Task 14.................
+                                                  using System.Threading;
+using System;
+namespace ThreadingDemo
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Method1 - Thread1 Started             Method2 - Thread2 Started            Method3 - Thread3 Started");
+            Console.WriteLine("\n-----------");
+            Thread thread1 = new Thread(Method1);
+            Thread thread2 = new Thread(Method2);
+            Thread thread3 = new Thread(Method3);
+            thread1.Start();
+            thread2.Start();
+            thread3.Start();
+            Console.Read();
+        }
+        static void Method1()
+        {
+            //Console.Write("Method1 - Thread1 Started");
+            for (int i = 1; i < 10; i++)
+            {
+                Thread.Sleep(1000);
+                Console.Write("  f1    "+i);
+                Console.WriteLine();
+
+            }           
+        }
+        static void Method2()
+        {
+            //Console.Write("                         Method2 - Thread2 Started");
+            for (int i = 1; i < 10; i++)
+            {
+                Thread.Sleep(2000); 
+                Console.Write("                                                 f2    " + i);
+                Console.WriteLine();
+
+            }
+
+        }
+        static void Method3()
+        {
+            //Console.Write("            Method3 - Thread3 Started");
+            for (int i = 1; i < 10; i++)
+            {
+                Thread.Sleep(3000);
+                Console.Write("                                                                                         f3    " + i);
+                Console.WriteLine();
+
+            }
+           
+           
+        }
+    }
+}
+                                          ................tas1 complete................
+using System.Threading;
+using System;
+namespace ThreadingDemo
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Method1 - Thread1 Started             Method2 - Thread2 Started            Method3 - Thread3 Started");
+            Console.Write("\n");
+            Thread thread1 = new Thread(Method1);
+            Thread thread2 = new Thread(Method2);
+            Thread thread3 = new Thread(Method3);
+            thread1.Start();
+            thread2.Start();
+            thread3.Start();
+            Console.ReadLine();
+        }
+        static void Method1()
+        {
+            
+            for (int i = 1; i > 0; i++)
+            {
+                Thread.Sleep(300);
+                Console.Write("  f1    " + i);
+                Console.WriteLine();
+
+            }
+        }
+        static void Method2()
+        {
+           
+            for (int i = 1; i > 0; i++)
+            {
+                Thread.Sleep(200);
+                Console.Write("                                                 f2    " + i);
+                Console.WriteLine();
+
+            }
+
+        }
+        static void Method3()
+        {
+            
+            for (int i = 1; i > 0; i++)
+            {
+                Thread.Sleep(100);
+                Console.Write("                                                                                         f3    " + i);
+                Console.WriteLine();
+
+            }
+
+
+        }
+    }
+}
+                                         ...................Task 2 Thread 12/16/2021...............
+using System.Threading;
+using System;
+namespace ThreadingDemo
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Method1 - Thread1 Started             Method2 - Thread2 Started            Method3 - Thread3 Started");
+            Console.Write("\n");
+            Thread thread1 = new Thread(Method1);
+            thread1.Start();
+            Thread thread2 = new Thread(Method2);
+            thread2.Start();
+            Thread thread3 = new Thread(Method3);
+            thread3.Start();
+           
+        }
+        static void Method1()
+        {
+
+            for (int i = 1; i > 0; i++)
+            {
+               
+                Console.Write(i);
+                Thread.Sleep(1000);
+                Console.Clear();
+            }
+        }
+        static void Method2()
+        {
+
+            for (int i = 1; i > 0; i++)
+            {
+                Console.Write("                                           " + i);
+                Thread.Sleep(2000);
+                Console.Clear();
+            }
+        }
+        static void Method3()
+        {
+
+            for (int i = 1; i > 0; i++)
+            {
+                Console.Write("                                                                                              " + i);
+                Thread.Sleep(4000);
+                Console.Clear();
+            }
+        }
+
+    }
+}
+''''''''''''''''''''''''''''''agian task 2.....
+using System.Threading;
+using System;
+namespace ThreadingDemo
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Method1 - Thread1 Started             Method2 - Thread2 Started            Method3 - Thread3 Started");
+            Console.Write("\n");
+            Thread thread1 = new Thread(Method1);
+            thread1.Priority = ThreadPriority.Normal;
+            thread1.Start();
+            Thread thread2 = new Thread(Method2);
+            thread2.Priority = ThreadPriority.Normal;
+            thread2.Start();
+            Thread thread3 = new Thread(Method3);
+            thread3.Priority = ThreadPriority.Normal;
+            thread3.Start();
+            Thread thread4 = new Thread(Method4);
+            thread4.Start();
+            thread4.Priority = ThreadPriority.Lowest;
+           
+        }
+        static void Method4()
+        {
+            Thread.Sleep(2000);
+        }
+        static void Method1()
+        {
+
+            for (int i = 1; i > 0; i++)
+            {
+               
+                Console.Write(i);
+                Thread.Sleep(1000);
+                Console.Clear();
+            }
+        }
+        static void Method2()
+        {
+
+            for (int i = 1; i > 0; i++)
+            {
+                Console.Write("                                           " + i);
+                Thread.Sleep(2000);
+                Console.Clear();
+                
+            }
+        }
+        static void Method3()
+        {
+
+            for (int i = 1; i > 0; i++)
+            {
+                Console.Write("                                                                                              " + i);
+                Thread.Sleep(4000);
+                Console.Clear();
+                
+
+            }
+        }
+
+    }
+}
+                                  /////////////////ThreadPool..................
+ using System.Threading;
+using System;
+namespace ThreadingDemo
+{
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            ThreadPool.QueueUserWorkItem(new WaitCallback(Run));
+          
+            
+            Console.ReadLine();
+        }
+
+        static void Run(object callback)
+        {
+            for (int i = 1; i > 0; i++)
+            {
+                Thread.Sleep(2000);
+                Console.Write("        " + i);
+                Thread.Sleep(1000);
+                Console.Clear();
+                Thread.Sleep(1000);
+            }
+            
+        }
+    
+
+
+    }
+ }
+
+                                                            ..........................Thread.....................
+   using System;
+using System.Threading;
+namespace ThreadPoolApplication
+{
+    class Program
+    {
+        
+        public static void Main(string[] args)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(MyMethod));
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(YoursMethod));
+            }
+            Console.Read();
+        }
+        public static void MyMethod(object obj)
+        {
+            Thread thread = Thread.CurrentThread;     
+            Console.WriteLine("I am From MyMethods");
+            Thread.Sleep(1000);
+           
+        }
+        public static void YoursMethod(object obj)
+        {
+            Thread thread = Thread.CurrentThread;     
+            Console.WriteLine("                       I am From YoursMethod");
+        }
+    }
+}
+                                                                  .................Task 1 complete................
+ using System.Threading;
+using System;
+namespace ThreadingDemo
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Thread1                          Thread2                           Thread3");
+            Console.Write("\n");
+            Thread thread1 = new Thread(Method1);
+            thread1.Start();
+            Thread thread2 = new Thread(Method2);
+            thread2.Start();
+            Thread thread3 = new Thread(Method3);
+            thread3.Start();
+           
+        }
+        static void Method1()
+        {
+
+            for (int i = 1; i > 0; i++)
+            {
+
+
+                //Console.SetCursorPosition(0, Console.CursorTop);   // - Move cursor
+                Console.Write($"{i} \r");
+                Thread.Sleep(1000);
+                //Console.Clear();
+            }
+        }
+        static void Method2()
+        {
+
+            for (int i = 1; i > 0; i++)
+            {
+                //Console.SetCursorPosition(0, Console.CursorTop);
+                Console.Write($"                                   {i}\r");
+                Thread.Sleep(2000);
+                //Console.Clear();
+            }
+        }
+        static void Method3()
+        {
+
+            for (int i = 1; i > 0; i++)
+            {
+                //Console.SetCursorPosition(0, Console.CursorTop);
+                Console.Write($"                                                                     {i}\r");
+                Thread.Sleep(4000);
+                //Console.Clear();
+            }
+        }
+
+    }
+}
