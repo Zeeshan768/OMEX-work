@@ -1189,3 +1189,37 @@ namespace ThreadingDemo
     }
  }
 
+                                                            ..........................Thread.....................
+   using System;
+using System.Threading;
+namespace ThreadPoolApplication
+{
+    class Program
+    {
+        
+        public static void Main(string[] args)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(MyMethod));
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(YoursMethod));
+            }
+            Console.Read();
+        }
+        public static void MyMethod(object obj)
+        {
+            Thread thread = Thread.CurrentThread;     
+            Console.WriteLine("I am From MyMethods");
+            Thread.Sleep(1000);
+           
+        }
+        public static void YoursMethod(object obj)
+        {
+            Thread thread = Thread.CurrentThread;     
+            Console.WriteLine("                       I am From YoursMethod");
+        }
+    }
+}
