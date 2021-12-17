@@ -1155,3 +1155,37 @@ namespace ThreadingDemo
 
     }
 }
+                                  /////////////////ThreadPool..................
+ using System.Threading;
+using System;
+namespace ThreadingDemo
+{
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            ThreadPool.QueueUserWorkItem(new WaitCallback(Run));
+          
+            
+            Console.ReadLine();
+        }
+
+        static void Run(object callback)
+        {
+            for (int i = 1; i > 0; i++)
+            {
+                Thread.Sleep(2000);
+                Console.Write("        " + i);
+                Thread.Sleep(1000);
+                Console.Clear();
+                Thread.Sleep(1000);
+            }
+            
+        }
+    
+
+
+    }
+ }
+
