@@ -2619,4 +2619,37 @@ class ThreadNaming
         }
     }
 }
+                                ..........................table...........
+                               using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace ConsoleAppThreads
+{
+    internal class Program
+    {
+     static void Mul(int num1)
+        {
+            for (int num2 =1; num2 <= 10 ; num2++)
+            {
+               int  result = num1 * num2;
+                Console.WriteLine($"{num1} x {num2} = "+result);
+            }
+            
+        } 
+
+        static void Main(string[] args)
+        {
+        
+            Mul(4);
+            Console.WriteLine("\n\n\n");
+            Mul(6);
+            Console.WriteLine("\n\n\n");
+            Mul(8);
+            Console.Read();
+
+        }
+    }
+}
