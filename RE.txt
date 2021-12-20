@@ -2563,3 +2563,60 @@ namespace ThreadingDemo
 
     }
 }
+                                    task 1 by using Threadpoool.................
+ using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+class ThreadNaming
+{
+    public static void Main()
+    {
+        Console.WriteLine("Thread1                          Thread2                           Thread3");
+      
+            ThreadPool.QueueUserWorkItem(new WaitCallback(Method1));
+            ThreadPool.QueueUserWorkItem(new WaitCallback(Method2));          
+            ThreadPool.QueueUserWorkItem(new WaitCallback(Method3));          
+        Console.Read();
+    }
+
+    static void Method1(object obj1)
+    {
+
+        for (int i = 0; i > -1; i++)
+        {
+
+
+            Console.SetCursorPosition(0, Console.CursorTop);   // - Move cursor
+            Console.Write($"{i}\r");
+            Thread.Sleep(1000);
+            //Console.Clear();
+        }
+    }
+    static void Method2(object obj1)
+    {
+
+        for (int i = 0; i > -1; i++)
+        {
+            //Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write($"                                   {i}\r");
+            Thread.Sleep(2000);
+            //Console.Clear();
+        }
+    }
+    static void Method3(object obj1)
+    {
+
+        for (int i = 0; i > -1; i++)
+        {
+            //Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write($"                                                                     {i}\r");
+            Thread.Sleep(4000);
+            //Console.Clear();
+        }
+    }
+}
+
