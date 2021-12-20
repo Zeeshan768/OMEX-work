@@ -2653,3 +2653,58 @@ namespace ConsoleAppThreads
         }
     }
 }
+ ............................       ...................Threadp[oool 20 dec..............
+ using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+class ThreadNaming
+{
+    public static void Main()
+    {
+        Console.WriteLine("Thread1                          Thread2                           Thread3");
+
+        ThreadPool.QueueUserWorkItem(Method1);
+        //ThreadNaming.Method2(1,2);
+        ThreadNaming.Method3();
+        Console.Read();
+    }
+
+    static void Method1(object a)
+    {
+
+        for (int i = 0; i > -1; i++)
+        {
+
+            //Console.setcursorposition(0, console.cursortop);   // - move cursor
+            Console.Write($"{i}\r");
+            Thread.Sleep(1000);
+            //console.clear();
+        }
+    }
+    static void Method2(object b,object c)
+    {
+
+        for (int i = 0; i > -1; i++)
+        {
+            //Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write($"                                   {i}\r");
+            Thread.Sleep(2000);
+            //Console.Clear();
+        }
+    }
+    static void Method3()
+    {
+
+        for (int i = 0; i > -1; i++)
+        {
+            //Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write($"                                                                     {i}\r");
+            Thread.Sleep(3000);
+            //Console.Clear();
+        }
+    }
+}
