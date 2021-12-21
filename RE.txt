@@ -2708,3 +2708,68 @@ class ThreadNaming
         }
     }
 }
+                                                                          ...........using task.............
+                                                                          
+ using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+class ThreadNaming
+{
+    public static void Main()
+    {
+        Console.WriteLine("Thread1                          Thread2                           Thread3");
+        //ThreadPool.QueueUserWorkItem(new WaitCallback(Method1));
+        Task.Run(() =>
+        {
+            Method1(1);
+        });
+        Task.Run(() =>
+        {
+            Method2(1);
+        });
+        Task.Run(() =>
+        {
+            Method3(1);
+        });
+
+        Console.Read();
+    }
+    static void Method1(object ab)
+    {
+
+        for (int i = 0; i > -1; i++)
+        {
+
+            //Console.setcursorposition(0, console.cursortop);   // - move cursor
+            Console.Write($"{i}\r");
+            Thread.Sleep(1000);
+            //console.clear();
+        }
+    }
+    static void Method2(object b)
+    {
+
+        for (int i = 0; i > -1; i++)
+        {
+            //Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write($"                                   {i}\r");
+            Thread.Sleep(2000);
+            //Console.Clear();
+        }
+    }
+    static void Method3(object c)
+    {
+
+        for (int i = 0; i > -1; i++)
+        {
+            //Console.SetCursorPosition(0, Console.CursorTop);           
+            Console.Write($"                                                                        {i}\r");
+            Thread.Sleep(3000);
+            //Console.Clear(
+        }
+    }
+}
