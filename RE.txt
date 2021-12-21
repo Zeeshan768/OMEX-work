@@ -2773,3 +2773,24 @@ class ThreadNaming
         }
     }
 }
+                      ...............task...............
+  using System;
+using System.Threading.Tasks;
+namespace TaskExample
+{
+public static class TaskProgram
+ {
+    public static void Main()
+        {
+            Task t = Task.Run(() =>
+
+            {
+            for (int x = 0; x < 50; x++)
+            {
+            Console.Write("Hi ");
+            }
+            });
+            t.Wait();
+        }
+  }
+}
