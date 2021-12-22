@@ -2794,3 +2794,40 @@ public static class TaskProgram
         }
   }
 }
+                            ..........................Task Program wait and call.....................
+ using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace ConsoleApp111
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter a number Which You Want to Print : ");
+            int  a = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter The Waiting time : ");
+            int b = int.Parse(Console.ReadLine());
+            var task1 = new Task(() => Work(a,b));
+            task1.Start(); 
+            var task2 = new Task(() => Work(a,b));
+            task2.(b);
+            task2.Start();
+            var task3 = new Task(() => Work(a,b));
+            task3.Wait(b);
+            task3.Start();  
+            
+            Console.ReadKey();  
+        }
+        static void Work(int a, int b)
+        {
+            Console.WriteLine("You Enter : " + a); 
+            Console.WriteLine("Task is Comnplete");
+        }
+    }
+}
+
