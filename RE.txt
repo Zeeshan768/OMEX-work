@@ -2906,3 +2906,83 @@ class ThreadNaming
         }
     }
 }
+                .....................................................
+                using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Diagnostics;
+
+class ThreadNaming
+{
+    public static void Main()
+    {
+        
+        Console.WriteLine("Thread                        ThreadPool                             Task");
+        
+        Thread t2 = new Thread(Method1);
+        t2.Start();
+        ThreadPool.QueueUserWorkItem(new WaitCallback(Method2));
+        Task t1 = Task.Run(() =>
+        {
+            Method3(3);
+        });
+        Console.Read();
+    }
+
+    static void Method1(object a)
+    {
+        Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+        long processAllocatedMemory = currentProcess.WorkingSet64;
+        var memory = System.GC.GetTotalMemory(true);
+        for (int i = 0; i <= 10; i++)
+        {
+            
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write($"{i}: {processAllocatedMemory} :{memory}\r");
+            Thread.Sleep(500);
+            
+            //console.clear();
+        }
+        Console.WriteLine();
+        var memoryEnd = System.GC.GetTotalMemory(true);
+        Console.WriteLine($"At the end Of the proces perform by Thread memory consumption is : {memoryEnd}");
+
+    }
+
+    static void Method2(object b)
+    {
+        Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+        long processAllocatedMemory = currentProcess.WorkingSet64;
+        var memory = System.GC.GetTotalMemory(true);
+        for (int i = 0; i <=10; i++)
+        {
+            Console.SetCursorPosition(35, Console.CursorTop);
+            Console.Write($"{i}: {processAllocatedMemory} :{memory}\r");
+            Thread.Sleep(500);
+            ////Console.Clear();
+        }
+        Console.WriteLine();
+        var memoryEnd = System.GC.GetTotalMemory(true);
+        Console.WriteLine($"At the end Of the proces perform by ThreadPool memory consumption is : {memoryEnd}");
+    }
+    static void Method3(object c)
+    {
+        Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+        long processAllocatedMemory = currentProcess.WorkingSet64;
+        var memory = System.GC.GetTotalMemory(true);
+       
+        for (int i = 0; i <=10; i++)
+        {
+            Console.SetCursorPosition(70, Console.CursorTop);
+            Console.Write($"{i}: {processAllocatedMemory} :{memory}\r");
+            Thread.Sleep(500);
+            //Console.Clear():
+        }
+        Console.WriteLine();
+        var memoryEnd = System.GC.GetTotalMemory(true);
+        Console.WriteLine($"At the end Of the proces perform by Task memory consumption is : {memoryEnd}");
+    }
+}
