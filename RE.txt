@@ -3090,3 +3090,116 @@ class ThreadNaming
         Console.WriteLine($"Execution Time taken by Task: {watch.ElapsedMilliseconds} ms");
     }
 }
+                                                  .....................Task Thread ThreadPool................
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Diagnostics;
+
+class ThreadNaming
+{
+    public static void Main()
+    {
+
+        Console.WriteLine("Thread                        ThreadPool                             Task");
+        ThreadPool.QueueUserWorkItem(new WaitCallback(Method1));
+        Thread t2 = new Thread(Method2);
+        t2.Start();
+        Task t1 = Task.Run(() =>
+        {
+            Method3(3);
+        });
+        Console.Read();
+
+      
+    }
+
+    static void Method1(object a)
+    {
+
+        
+
+        //Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+        //long processAllocatedMemory = currentProcess.WorkingSet64;
+        var memory = System.GC.GetTotalMemory(true);
+        var watch = new System.Diagnostics.Stopwatch();
+        watch.Start();
+        for (int i = 0; i <= 10; i++)
+        {
+
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write($"{i}: {memory}\r");
+            Thread.Sleep(500);
+
+            //console.clear();
+        }
+        watch.Stop();
+        Console.WriteLine();
+        var memoryEnd = System.GC.GetTotalMemory(true);
+        Console.WriteLine("___________________________________________________________________________________");
+        Console.WriteLine($"At the Sart Of the proces perform by Thread memory consumption is : {memory} bytes");
+        Console.WriteLine($"At the end Of the proces perform by Thread memory consumption is : {memoryEnd} bytes");
+        Console.WriteLine($"Execution Time taken by Thread: {watch.ElapsedMilliseconds}ms");
+        Console.WriteLine("___________________________________________________________________________________");
+
+    }
+
+    static void Method2(object b)
+    {
+       
+
+        //Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+        //long processAllocatedMemory = currentProcess.WorkingSet64;
+        var memory = System.GC.GetTotalMemory(true);
+        var watch = new System.Diagnostics.Stopwatch();
+        watch.Start();
+        for (int i = 0; i <= 10; i++)
+        {
+
+            Console.SetCursorPosition(35, Console.CursorTop);
+            Console.Write($"{i}: {memory} bytes\r");
+            Thread.Sleep(500);
+
+            //console.clear();
+        }
+        watch.Stop();
+        Console.WriteLine();
+        var memoryEnd = System.GC.GetTotalMemory(true);
+        Console.WriteLine("___________________________________________________________________________________");
+        Console.WriteLine($"At the Sart Of the proces perform by ThreadPool memory consumption is : {memory} bytes");
+        Console.WriteLine($"At the end Of the proces perform by ThreadPool memory consumption is : {memoryEnd} bytes");
+        Console.WriteLine($"Execution Time taken by Thread Pool: {watch.ElapsedMilliseconds}ms");
+        Console.WriteLine("___________________________________________________________________________________");
+
+    }
+    static void Method3(object c)
+    {
+        
+
+        //Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+        //long processAllocatedMemory = currentProcess.WorkingSet64;
+        var memory = System.GC.GetTotalMemory(true);
+        var watch = new System.Diagnostics.Stopwatch();
+        watch.Start();
+        for (int i = 0; i <= 10; i++)
+        {
+
+            Console.SetCursorPosition(70, Console.CursorTop);
+            Console.Write($"{i}:{memory} bytes \r");
+            Thread.Sleep(500);
+
+            //console.clear();
+        }
+        watch.Stop();
+        Console.WriteLine();
+        var memoryEnd = System.GC.GetTotalMemory(true);
+        Console.WriteLine("___________________________________________________________________________________");
+        Console.WriteLine($"At the Sart Of the proces perform by Task memory consumption is : {memory} bytes");
+        Console.WriteLine($"At the end Of the proces perform by Task memory consumption is : {memoryEnd} bytes");
+        Console.WriteLine($"Execution Time taken by Task: {watch.ElapsedMilliseconds}ms");
+        Console.WriteLine("___________________________________________________________________________________");
+    }
+}
