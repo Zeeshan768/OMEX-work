@@ -2906,6 +2906,49 @@ class ThreadNaming
         }
     }
 }
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace Task_Timer
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Task 1 \t Task 2 \t Task 3");
+            Task t = Task.Run(() =>
+            {
+                for (int i = 0; ; i++)
+                {
+                    Console.Write("\r" + i);
+                    Thread.Sleep(1000);
+                }
+            });
+            Task t1 = Task.Run(() =>
+            {
+                for (int i = 0; ; i++)
+                {
+                    Console.Write("\r\t  " + i);
+                    Thread.Sleep(2000);
+                }
+
+            });
+            Task t2 = Task.Run(() =>
+            {
+                for (int i = 0; ; i++)
+                {
+                    Console.Write("\r\t\t\t  " + i);
+                    Thread.Sleep(3000);
+                }
+            });
+            Console.Read();
+        }
+    }
+}
                 .....................................................
                 using System;
 using System.Collections.Generic;
@@ -3203,3 +3246,4 @@ class ThreadNaming
         Console.WriteLine("___________________________________________________________________________________");
     }
 }
+
