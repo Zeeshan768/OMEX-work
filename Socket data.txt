@@ -1,4 +1,4 @@
-		........................Server creation..........
+		........................Server creation with discription..........
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +50,39 @@ namespace SockServer
             //P2 :From which index our data start encoded
             //P3 : How many bytes encode
             //now to print data recieve
+            Console.WriteLine("Data Send by clint : "+recievedText);
+            Console.Read();
+        }
+    }
+}
+				     ..................Server creation without discription.............
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Net;
+using System.Net.Sockets;
+
+namespace SockServer
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {     
+            Socket listenerSocket = new Socket(AddressFamily.InterNetwork,SocketType.Stream, ProtocolType.Tcp);
+            IPAddress ipaddr = IPAddress.Any;
+            IPEndPoint ipep=new IPEndPoint(ipaddr,23000);
+            listenerSocket.Bind(ipep);
+            listenerSocket.Listen(5);
+            Console.WriteLine("About To accept incomming clint.....");
+            Socket Client = listenerSocket.Accept();
+            Console.WriteLine("CLint may connected : "+ Client.ToString());
+            byte[] buff = new byte[128];
+            int numberOfRecievedBytes = Client.Receive(buff);
+            Console.WriteLine("No of bytes sent by clint : "+numberOfRecievedBytes);
+            Console.WriteLine("Clint sene data :" + buff);
+            string recievedText=Encoding.ASCII.GetString(buff, 0, numberOfRecievedBytes);
             Console.WriteLine("Data Send by clint : "+recievedText);
             Console.Read();
         }
