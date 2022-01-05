@@ -1,0 +1,57 @@
+		........................Server creation..........
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Net;
+using System.Net.Sockets;
+
+namespace SockServer
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {      //We need socket  to create server side  its socket
+            Socket listenerSocket = new Socket(AddressFamily.InterNetwork,SocketType.Stream, ProtocolType.Tcp);
+            //Now we need to assign veriable which accept id
+            IPAddress ipaddr = IPAddress.Any;
+            //we asign (IPAddress.Any;) because this class accept any ip in out machine
+            //Now we need tpo define IP and port by IPEndPount Method
+            IPEndPoint ipep=new IPEndPoint(ipaddr,23000);
+            //Now we bind IP with socket 
+            listenerSocket.Bind(ipep);
+            //Now Assign how many clint can connect with our socket
+            listenerSocket.Listen(5);
+            Console.WriteLine("About To accept incomming clint.....");
+            //Now we use accept method to accept request by clint foer connection
+            //listenerSocket.Accept();
+            //if we want to recieve message from clint we use above command like
+            Socket Client = listenerSocket.Accept();
+            // We recieve mesage when clint connect to server by using bellow line
+            Console.WriteLine("CLint may connected : "+ Client.ToString());
+            //NOw we need memory to stor recieve data {.recieve} is recieve every type of data i.e image text
+            // voices data we 
+            // we need to define data type to our program and alocate memory we recieve data in int  form
+            // so se make arry of byte..
+            byte[] buff = new byte[128];
+            //now for recieve data by clint we use .Recieve method and pass a parameters
+            //where our data store 
+            int numberOfRecievedBytes = Client.Receive(buff);
+            //to print no of bytes send by clint 
+            Console.WriteLine("No of bytes sent by clint : "+numberOfRecievedBytes);
+            // to recieve deta by clint which is store in buff 
+            Console.WriteLine("Clint sene data :" + buff);
+            // data recieve is in byte form (Computer understanable) to convert data itno (human understandable)
+            //we use bellow method
+            string recievedText=Encoding.ASCII.GetString(buff, 0, numberOfRecievedBytes);
+            //in above method there are three parameters whoch shows 
+            //P1 :where data store
+            //P2 :From which index our data start encoded
+            //P3 : How many bytes encode
+            //now to print data recieve
+            Console.WriteLine("Data Send by clint : "+recievedText);
+            Console.Read();
+        }
+    }
+}
