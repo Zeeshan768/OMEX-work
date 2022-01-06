@@ -88,3 +88,105 @@ namespace SockServer
         }
     }
 }
+										..........Clint recieve his messag server send its msg back.......
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Net;
+using System.Net.Sockets;
+
+namespace SockServer
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Socket listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            IPAddress ipaddr = IPAddress.Any;
+            IPEndPoint ipep = new IPEndPoint(ipaddr, 23000);
+            listenerSocket.Bind(ipep);
+            listenerSocket.Listen(5);
+            Console.WriteLine("About To accept incomming clint.....");
+            Socket Client = listenerSocket.Accept();
+            Console.WriteLine("CLint may connected : " + Client.ToString());
+            byte[] buff = new byte[128];
+            int numberOfRecievedBytes = 0;
+            //to send data many time we use loop
+            while (true)
+            {
+                numberOfRecievedBytes = Client.Receive(buff);
+                Console.WriteLine("No of bytes sent by clint : " + numberOfRecievedBytes);
+                Console.WriteLine("Clint sene data :" + buff);
+                string recievedText = Encoding.ASCII.GetString(buff, 0, numberOfRecievedBytes);
+                Console.WriteLine("Data Send by clint : " + recievedText);
+                //clint ko data send back kny k lye hm .Send method use kren gy
+                //peremeters me buff write kia hy jis waja sy clint ny jo data bheja wo buff me store hua
+                //wohi  clint ko wapis mily ga
+                Client.Send(buff);
+                // agar program ko bnd krna ho 
+                if (recievedText == "x")
+                {
+                    break;
+                }
+                //ab data ko clear krny k lye jo buff me hy taky clint again data bhejy to us data ko
+                //again buff me stoe krwa sken hum buff ko clear krean gy
+                Array.Clear(buff, 0, buff.Length);
+                numberOfRecievedBytes = 0;
+                Console.Read();
+            }
+
+        }
+    }
+}
+
+				...........Clint recieve his messag server send its msg back With out detail..........
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Net;
+using System.Net.Sockets;
+
+namespace SockServer
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Socket listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            IPAddress ipaddr = IPAddress.Any;
+            IPEndPoint ipep = new IPEndPoint(ipaddr, 23000);
+            listenerSocket.Bind(ipep);
+            listenerSocket.Listen(5);
+            Console.WriteLine("About To accept incomming clint.....");
+            Socket Client = listenerSocket.Accept();
+            Console.WriteLine("CLint may connected : " + Client.ToString());
+            byte[] buff = new byte[128];
+            int numberOfRecievedBytes = 0;
+            while (true)
+            {
+                numberOfRecievedBytes = Client.Receive(buff);
+                Console.WriteLine("No of bytes sent by clint : " + numberOfRecievedBytes);
+                Console.WriteLine("Clint sene data :" + buff);
+                string recievedText = Encoding.ASCII.GetString(buff, 0, numberOfRecievedBytes);
+                Console.WriteLine("Data Send by clint : " + recievedText);
+
+                Client.Send(buff);
+ 
+                if (recievedText == "x")
+                {
+                    break;
+                }
+                
+                Array.Clear(buff, 0, buff.Length);
+                numberOfRecievedBytes = 0;
+                Console.Read();
+            }
+
+        }
+    }
+}
+
