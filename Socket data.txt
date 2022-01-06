@@ -238,3 +238,63 @@ namespace SockServer
         }
     }
 }
+...........incomp 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading;
+
+namespace SockServer
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Socket listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            IPAddress ipaddr = IPAddress.Any;
+            IPEndPoint ipep = new IPEndPoint(ipaddr, 23000);
+            listenerSocket.Bind(ipep);
+            listenerSocket.Listen(5);
+            Console.WriteLine("About To accept incomming clint.....");
+            Socket Client = default(Socket);
+            int counter = 0;
+            Program p = new Program();  
+            while (true)
+            {
+                counter++;
+                Client = listenerSocket.Accept();
+                Console.WriteLine("CLint may connected : " + Client.ToString());
+                Thread UserThread=new Thread(new ThreadStart(() => p.User(Client)));
+                UserThread.Start();
+            }
+            byte[] buff = new byte[128];
+            int numberOfRecievedBytes = 0;
+            while (true)
+            {
+                numberOfRecievedBytes = Client.Receive(buff);
+                Console.WriteLine("No of bytes sent by clint : " + numberOfRecievedBytes);
+                Console.WriteLine("Clint sene data :" + buff);
+                string recievedText = Encoding.ASCII.GetString(buff, 0, numberOfRecievedBytes);
+                Console.WriteLine("Data Send by clint : " + recievedText);
+                Client.Send(buff, 0, SocketFlags.None);
+                if (recievedText == "x")
+                {
+                    break;
+                }
+                Array.Clear(buff, 0, buff.Length);
+                numberOfRecievedBytes = 0;
+                Console.Read();
+            }
+
+        }
+
+        private void User(Socket client)
+        {
+         
+        }
+    }
+}
