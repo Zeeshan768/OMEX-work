@@ -1,0 +1,41 @@
+								.....Server Start Form App..........
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Net.Sockets;
+
+namespace FormServerSocket
+{  
+    public class ServerSocket
+    {
+        IPAddress mIP;
+        int mPort;
+        TcpListener mTCPListener;
+        public async void StartListeningForIncommingConnection(IPAddress ipaddr= null, int port = 23000)
+        {
+            if(ipaddr == null)
+            {
+                ipaddr = IPAddress.Any; 
+            }
+            if(port <= 23000)
+            {
+                port = 2300;
+            }
+            mIP = ipaddr;
+            mPort = port;
+            Debug.WriteLine(String.Format($"IP Address : {mIP.ToString()}  Port: {mPort}"));
+
+            mTCPListener = new TcpListener(mIP, mPort);
+            mTCPListener.Start();
+            var returnByAccept = await mTCPListener.AcceptTcpClientAsync();
+            Debug.WriteLine("Clint connecty successfully: " + returnByAccept);
+            Console.Read();
+
+        }
+    }
+}
