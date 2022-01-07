@@ -380,3 +380,51 @@ class MyTcpListener
         Console.Read();
     }
 }
+							..........mesage by clint to server........
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Diagnostics;
+using System.Net.Sockets;
+using System.Net;
+namespace Server
+{
+    class Program
+    {
+        static Socket Client = default(Socket);
+        static void Main(string[] args)
+        {
+            Socket listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            IPAddress ipaddr = IPAddress.Any;
+            IPEndPoint ipep = new IPEndPoint(ipaddr, 23000);
+            listenerSocket.Bind(ipep);
+            listenerSocket.Listen(0);
+            Console.WriteLine("About To accept incomming clint.....");
+            int counter = 0;
+            Program p = new Program();
+            while (true)
+            {
+                counter++;
+                Client = listenerSocket.Accept();
+                Console.WriteLine($"CLint No.{counter} is connected : " + Client.ToString());
+                Thread thread = new Thread(new ThreadStart(() => p.message(Client)));
+                thread.Start();
+            }
+            Console.Read();
+        }
+
+        private void message(Socket client)
+        {
+            while (true)
+            {
+                string a = Console.ReadLine();
+                byte[] buffer = Encoding.Default.GetBytes("\n"+a);
+                Client.Send(buffer,0, buffer.Length,0);
+            }
+        }
+
+    }
+}
