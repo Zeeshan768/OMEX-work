@@ -1,5 +1,38 @@
-								.....Server Start Form App..........
+				...........Application To recieve message from multiple clients............
+							............Form Side.........
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using FormServerSocket;
 
+namespace FormServer
+{
+    public partial class Form1 : Form
+    {
+        //call method we creat previously in Form Server To linkwith form
+        FormServerSockets  mServer;
+
+        public Form1()
+        {
+            InitializeComponent();
+            mServer = new FormServerSockets();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            mServer.StartListeningForIncommingConnection();
+        }
+    }
+}
+
+
+			.........Server Side...........
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,34 +41,79 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Net.Sockets;
+using System.IO;
 
 namespace FormServerSocket
-{  
-    public class ServerSocket
+{
+    public class FormServerSockets
     {
         IPAddress mIP;
         int mPort;
         TcpListener mTCPListener;
-        public async void StartListeningForIncommingConnection(IPAddress ipaddr= null, int port = 23000)
+        public bool keepRunning;
+        public async void StartListeningForIncommingConnection(IPAddress ipaddr = null, int port = 23000)
         {
-            if(ipaddr == null)
+            if (ipaddr == null)
             {
-                ipaddr = IPAddress.Any; 
+                ipaddr = IPAddress.Any;
             }
-            if(port <= 23000)
+            if (port <= 0)
             {
-                port = 2300;
+                port = 23000;
             }
             mIP = ipaddr;
             mPort = port;
             Debug.WriteLine(String.Format($"IP Address : {mIP.ToString()}  Port: {mPort}"));
-
             mTCPListener = new TcpListener(mIP, mPort);
-            mTCPListener.Start();
-            var returnByAccept = await mTCPListener.AcceptTcpClientAsync();
-            Debug.WriteLine("Clint connecty successfully: " + returnByAccept);
-            Console.Read();
+            try
+            {
+                mTCPListener.Start();
+                keepRunning = true;
+                int Counter=0;
+                while (keepRunning)
+                {
+                    Counter++;
+                    var returnByAccept = await mTCPListener.AcceptTcpClientAsync();
+                    Debug.WriteLine($"Clint {Counter} connecty successfully: ");
+                    TakeCareOfTCPClient(returnByAccept);
+                }
+            }
+            catch (Exception excp)
+            {
+                Debug.WriteLine(excp.ToString());
+            }
+        }
 
+        private async void TakeCareOfTCPClient(TcpClient paremClient)
+        {
+            NetworkStream stream = null;
+            StreamReader reader = null;
+            try
+            {
+                stream = paremClient.GetStream();
+                reader = new StreamReader(stream);
+                //to store data send by client we need arry
+                char[] buff = new char[64];
+                while (keepRunning)
+                {
+                    Debug.WriteLine("---Ready To Read-----");
+                    int nRet = await reader.ReadAsync(buff, 0, buff.Length);
+                    if (nRet == 0)
+                    {
+                        
+                        Debug.WriteLine($"Client  Disconnected");
+                        break;
+                    }
+                    string receivedText = new string(buff);
+                    Debug.WriteLine($"Recieved By Client : {receivedText}");
+                    // we need to clear previous message from buff
+                    Array.Clear(buff, 0, buff.Length);
+                }
+            }
+            catch (Exception excp)
+            {
+                Debug.WriteLine(excp.ToString());
+            }
         }
     }
 }
