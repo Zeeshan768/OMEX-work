@@ -117,3 +117,160 @@ namespace FormServerSocket
         }
     }
 }
+								...........Application To recieve  message from multiple clients and send TO all Client by Server............
+											............Form Side.........
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using FormServerSocket;
+
+namespace FormServer
+{
+    public partial class Form1 : Form
+    {
+        FormServerSockets mServer;
+        public Form1()
+        {
+            InitializeComponent();
+            mServer = new FormServerSockets();
+        }
+
+        private void btnIncommingClientConnect_Click(object sender, EventArgs e)
+        {
+            mServer.StartListeningForIncommingConnection();
+        }
+
+        private void btnSendAll_Click(object sender, EventArgs e)
+        {
+            mServer.SendToAll(textMessage.Text.Trim());
+        }
+    }
+}
+										.........Server Side...........
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Net.Sockets;
+using System.IO;
+
+namespace FormServerSocket
+{
+    public class FormServerSockets
+    {
+        IPAddress mIP;
+        int mPort;
+        TcpListener mTCPListener;
+        public bool keepRunning;
+        List<TcpClient> mClient;
+        public FormServerSockets()
+            {
+            mClient = new List<TcpClient>();
+            }
+
+        public async void StartListeningForIncommingConnection(IPAddress ipaddr = null, int port = 23000)
+        {
+            if (ipaddr == null)
+            {
+                ipaddr = IPAddress.Any;
+            }
+            if (port <= 0)
+            {
+                port = 23000;
+            }
+            mIP = ipaddr;
+            mPort = port;
+            Debug.WriteLine(String.Format($"IP Address : {mIP.ToString()}  Port: {mPort}"));
+            mTCPListener = new TcpListener(mIP, mPort);
+            try
+            {
+                mTCPListener.Start();
+                keepRunning = true;
+                int Counter=0;
+                while (keepRunning)
+                {
+                    Counter++;
+                    var returnByAccept = await mTCPListener.AcceptTcpClientAsync();
+                    mClient.Add(returnByAccept);
+                    Debug.WriteLine($"Clint {Counter} connecty successfully: ");
+                    TakeCareOfTCPClient(returnByAccept);
+                }
+            }
+            catch (Exception excp)
+            {
+                Debug.WriteLine(excp.ToString());
+            }
+        }
+
+        private async void TakeCareOfTCPClient(TcpClient paremClient)
+        {
+            NetworkStream stream = null;
+            StreamReader reader = null;
+            try
+            {
+                stream = paremClient.GetStream();
+                reader = new StreamReader(stream);
+                //to store data send by client we need arry
+                char[] buff = new char[64];
+                while (keepRunning)
+                {
+                    Debug.WriteLine("---Ready To Read-----");
+                    int nRet = await reader.ReadAsync(buff, 0, buff.Length);
+                    if (nRet == 0)
+                    {
+                        RemoveClient(paremClient);
+                        Debug.WriteLine($"Client  Disconnected");
+                        break;
+                    }
+                    string receivedText = new string(buff);
+                    Debug.WriteLine($"Recieved By Client : {receivedText}");
+                    // we need to clear previous message from buff
+                    Array.Clear(buff, 0, buff.Length);
+                }
+            }
+            catch (Exception excp)
+            {
+                RemoveClient(paremClient);
+                Debug.WriteLine(excp.ToString());
+            }
+        }
+
+        private void RemoveClient(TcpClient paremClient)
+        {
+            if(mClient.Contains(paremClient))
+            {
+                Debug.WriteLine(String.Format($"Client {mClient.Count} Remove"));
+            }
+        }
+        //For sending data to all clients
+        public async void SendToAll(string leMessage)
+        {
+            if(string.IsNullOrEmpty(leMessage))
+            {
+                return;
+            }
+            try
+            {
+                byte[] buffMessage = Encoding.ASCII.GetBytes($"\n{leMessage}");
+                foreach(TcpClient c in mClient)
+                {
+                    c.GetStream().WriteAsync(buffMessage, 0 ,buffMessage.Length);
+                    
+                }
+            }
+            catch(Exception excp)
+            {
+                Debug.WriteLine(excp.ToString());
+            }
+        }
+    }
+}
